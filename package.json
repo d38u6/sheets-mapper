@@ -1,0 +1,11 @@
+{
+  "name": "prawko_questions_parser",
+  "version": "0.0.1",
+  "description": "parser oficial xlsx to json",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "d38u6",
+  "license": "ISC"
+}
