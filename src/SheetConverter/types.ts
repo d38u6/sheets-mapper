@@ -1,42 +1,21 @@
-import { SHEET_NAME } from "./constanst";
-
-export type Sheet = {
+export type Sheets = {
   [key: string]: any[];
+};
+
+export type TypedSheets<T extends string> = {
+  [P in T]: any[];
 };
 
 export type SheetRow = {
   [key: string]: string;
 };
 
-export type QuestionsSheet = {
-  [SHEET_NAME]: QuestionRow[];
-};
-
-export type QuestionCols =
-  | "A"
-  | "B"
-  | "C"
-  | "D"
-  | "E"
-  | "F"
-  | "G"
-  | "H"
-  | "I"
-  | "J"
-  | "K"
-  | "L"
-  | "M"
-  | "N"
-  | "O"
-  | "P"
-  | "Q"
-  | "R"
-  | "S"
-  | "T"
-  | "U"
-  | "V"
-  | "W";
-
-export type QuestionRow = {
-  [P in QuestionCols]: string;
+export type SheetConverterConfig<SheetName> = {
+  sheetName: SheetName;
+  source: string | Buffer;
+  header?: { rows: number };
+  range?: string;
+  columnToKey?: { [key: string]: string };
+  includeEmptyLines?: boolean;
+  sheetStubs?: boolean;
 };
