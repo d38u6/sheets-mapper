@@ -1,14 +1,18 @@
 {
-  "name": "prawko_questions_parser",
+  "name": "sheets-mapper",
   "version": "0.0.1",
-  "description": "parser oficial xlsx to json",
+  "description": "Map excel sheets to strongly typed JS Object",
   "main": "index.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "start:dev": "ts-node src/app.ts",
     "start": "node build/app.js",
     "build": "tsc",
-    "lint": "eslint './*.{ts,tsx}'",
-    "lint:fix": "eslint './*.{ts,tsx}' --fix"
+    "lint": "eslint './src/SheetsMapper/*.{ts,tsx}'",
+    "lint:fix": "eslint './src/SheetsMapper/*.{ts,tsx}' --fix",
+    "format": "prettier --write 'src/**/*.ts'"
   },
   "author": "d38u6",
   "license": "ISC",
@@ -26,5 +30,19 @@
   },
   "dependencies": {
     "convert-excel-to-json": "^1.7.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d38u6/sheets-mapper.git"
+  },
+  "keywords": [
+    "sheets",
+    "mapper",
+    "excel",
+    "sheet"
+  ],
+  "bugs": {
+    "url": "https://github.com/d38u6/sheets-mapper/issues"
+  },
+  "homepage": "https://github.com/d38u6/sheets-mapper#readme"
 }
