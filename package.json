@@ -1,6 +1,6 @@
 {
   "name": "sheets-mapper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Map excel sheets to strongly typed JS Object",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
