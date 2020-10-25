@@ -2,13 +2,19 @@
   "name": "sheets-mapper",
   "version": "0.0.1",
   "description": "Map excel sheets to strongly typed JS Object",
-  "main": "index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib/**/*"
   ],
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "eslint './src/SheetsMapper/*.{ts,tsx}'",
     "lint:fix": "eslint './src/SheetsMapper/*.{ts,tsx}' --fix"
