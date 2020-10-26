@@ -13,7 +13,7 @@ export type Config<SM extends SheetsMaps> = {
   range?: string;
 };
 
-export type Row = { [key: string]: string };
+export type Row = ObjectOfStrings;
 
 export type TypedRow<Map extends ObjectOfStrings> = {
   [P in keyof Map]: string;
