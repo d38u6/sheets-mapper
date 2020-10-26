@@ -9,10 +9,10 @@ export class Logger {
     this.state = { ...this.state, rowNumber };
   }
 
-  Error(msg: string): Error {
+  error(msg: string): Error {
     const { sheetName, rowNumber } = this.state;
-    const sMMsg = sheetName ? `In ${sheetName} sheet, ` : "";
-    const rowMsg = rowNumber !== 0 ? `row number: ${rowNumber}. ` : "";
+    const sMMsg = sheetName ? `In ${sheetName} sheet. ` : "";
+    const rowMsg = rowNumber !== 0 ? `Row number: ${rowNumber}. ` : "";
     return new Error(sMMsg + rowMsg + msg);
   }
 }

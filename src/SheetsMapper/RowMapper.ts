@@ -10,7 +10,7 @@ export class RowMapper<Map extends RowMap> {
   private hasColumns(row: Row): row is TypedRow<Map> {
     Object.keys(this.rowMap).forEach((col) => {
       if (typeof row[col] !== "string") {
-        throw this.logger.Error(`Sheet do not contain ${col} column.`);
+        throw this.logger.error(`Sheet do not contain ${col} column.`);
       }
     });
     return true;
@@ -19,7 +19,7 @@ export class RowMapper<Map extends RowMap> {
   private isMappedRow(row: Row): row is MappedRow<Map> {
     Object.values(this.rowMap).forEach((name) => {
       if (typeof row[name] !== "string") {
-        throw this.logger.Error(`Mapping ${name} property filed`);
+        throw this.logger.error(`Mapping ${name} property filed`);
       }
     });
     return true;
@@ -35,11 +35,11 @@ export class RowMapper<Map extends RowMap> {
       });
 
       if (!this.isMappedRow(mappedRow)) {
-        throw this.logger.Error("Mapping row failed");
+        throw this.logger.error("Mapping row failed");
       }
       return mappedRow;
     }
-    throw this.logger.Error("Row is not cohesion with row map");
+    throw this.logger.error("Row is not cohesion with row map");
   }
 
   mapRows(rows: Row[]): MappedRow<Map>[] {

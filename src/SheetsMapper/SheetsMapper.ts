@@ -17,7 +17,7 @@ export class SheetsMapper<SM extends SheetsMaps> {
   private hasSheets(sheets: Sheets): sheets is TypedSheets<SM> {
     Object.keys(this.sheetsMap).forEach((sheetName) => {
       if (sheets[sheetName] === undefined) {
-        throw this.logger.Error(
+        throw this.logger.error(
           `Sheets source do not contain ${sheetName} sheet. Check sheets soruce.`
         );
       }
@@ -31,7 +31,7 @@ export class SheetsMapper<SM extends SheetsMaps> {
         Object.values(this.sheetsMap[sheetName]).forEach((propName) => {
           sheets[sheetName].forEach((row) => {
             if (typeof row[propName] !== "string") {
-              throw this.logger.Error(`Row not contain ${propName} property`);
+              throw this.logger.error(`Row not contain ${propName} property`);
             }
           });
         });
@@ -39,7 +39,7 @@ export class SheetsMapper<SM extends SheetsMaps> {
 
       return true;
     }
-    throw this.logger.Error("Mapped sheets is not cohesion with sheets map");
+    throw this.logger.error("Mapped sheets is not cohesion with sheets map");
   }
 
   map(): MappedSheets<SM> {
@@ -56,7 +56,7 @@ export class SheetsMapper<SM extends SheetsMaps> {
     this.logger.setSheetName("");
     if (this.isMappedSheets(mappedSheets)) return mappedSheets;
 
-    throw this.logger.Error("Mapped Sheets failed");
+    throw this.logger.error("Mapped Sheets failed");
   }
 
   static map<ShM extends SheetsMaps>(config: Config<ShM>): MappedSheets<ShM> {
