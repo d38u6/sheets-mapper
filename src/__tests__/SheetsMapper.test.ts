@@ -1,5 +1,11 @@
 import { SheetsMapper } from "../SheetsMapper/SheetsMapper";
-import { source, correctSheetsMap, mappedSheets } from "./data/fixtures";
+import {
+  source,
+  sourceWithoutCols,
+  correctSheetsMap,
+  mappedSheets,
+  mappedSheetsWithoutCols,
+} from "./data/fixtures";
 
 describe("SheetsMapper class", () => {
   it("When the sheets map is inconsistent with sheets, should throw a suitable error", () => {
@@ -14,9 +20,20 @@ describe("SheetsMapper class", () => {
     );
   });
 
-  it("Should return corectly mapped sheets", () => {
-    expect(
-      SheetsMapper.map({ source, sheetsMap: correctSheetsMap })
-    ).toStrictEqual(mappedSheets);
+  describe("Should return corectly mapped sheets", () => {
+    it("when map full sheet", () => {
+      expect(
+        SheetsMapper.map({ source, sheetsMap: correctSheetsMap })
+      ).toStrictEqual(mappedSheets);
+    });
+    it("when map sheet without cols", () => {
+      expect(
+        SheetsMapper.map({
+          source: sourceWithoutCols,
+          sheetsMap: correctSheetsMap,
+          fillEmptyCols: true,
+        })
+      ).toStrictEqual(mappedSheetsWithoutCols);
+    });
   });
 });

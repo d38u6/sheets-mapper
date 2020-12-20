@@ -9,6 +9,7 @@ export type RowMap = ObjectOfStrings;
 export type Config<SM extends SheetsMaps> = {
   sheetsMap: SM;
   source: string | Buffer;
+  fillEmptyCols?: boolean;
   header?: { rows: number };
   range?: string;
 };

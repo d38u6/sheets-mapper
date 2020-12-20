@@ -6,10 +6,12 @@ import { Config, SheetsMaps, Sheets, TypedSheets, MappedSheets } from "./types";
 export class SheetsMapper<SM extends SheetsMaps> {
   private readonly sheetsMap: SheetsMaps;
   private readonly sourceSheets: Sheets;
+  private readonly fillEmptyCols: boolean;
   private readonly logger = new Logger();
 
-  constructor({ sheetsMap, ...config }: Config<SM>) {
+  constructor({ sheetsMap, fillEmptyCols, ...config }: Config<SM>) {
     this.sheetsMap = sheetsMap;
+    this.fillEmptyCols = fillEmptyCols || false;
     this.sourceSheets = excelToJson(config);
     this.hasSheets(this.sourceSheets);
   }
@@ -49,6 +51,7 @@ export class SheetsMapper<SM extends SheetsMaps> {
       const mappedSheet = RowMapper.mapRows(
         sheetRows,
         this.sheetsMap[sheetName],
+        this.fillEmptyCols,
         this.logger
       );
       mappedSheets = { ...mappedSheets, [sheetName]: mappedSheet };

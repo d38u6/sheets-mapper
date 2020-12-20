@@ -4,6 +4,7 @@ import { RowMap, MappedRow, Row, TypedRow } from "./types";
 export class RowMapper<Map extends RowMap> {
   constructor(
     private readonly rowMap: Map,
+    private readonly fillEmptyCols = false,
     private readonly logger = new Logger()
   ) {}
 
@@ -25,10 +26,23 @@ export class RowMapper<Map extends RowMap> {
     return true;
   }
 
+  private fillRow(row: Row): Row {
+    const emptyCols = Object.keys(this.rowMap).reduce<Row>(
+      (pv, cv) => ({ ...pv, [cv]: "" }),
+      {}
+    );
+    return { ...emptyCols, ...row };
+  }
+
   map(row: Row): MappedRow<Map> {
-    if (this.hasColumns(row)) {
+    let filledRow = row;
+    if (this.fillEmptyCols) {
+      filledRow = this.fillRow(row);
+    }
+
+    if (this.hasColumns(filledRow)) {
       let mappedRow = {};
-      Object.entries(row).forEach(([key, value]) => {
+      Object.entries(filledRow).forEach(([key, value]) => {
         const propName = this.rowMap[key];
         if (typeof propName === "string")
           mappedRow = { ...mappedRow, [propName]: value };
@@ -56,18 +70,20 @@ export class RowMapper<Map extends RowMap> {
   static map<M extends RowMap>(
     row: Row,
     map: M,
+    fillEmptyCols?: boolean,
     logger?: Logger
   ): MappedRow<M> {
-    const rm = new RowMapper(map, logger);
+    const rm = new RowMapper(map, fillEmptyCols, logger);
     return rm.map(row);
   }
 
   static mapRows<M extends RowMap>(
     rows: Row[],
     map: M,
+    fillEmptyCols?: boolean,
     logger?: Logger
   ): MappedRow<M>[] {
-    const rm = new RowMapper(map, logger);
+    const rm = new RowMapper(map, fillEmptyCols, logger);
     return rm.mapRows(rows);
   }
 }
